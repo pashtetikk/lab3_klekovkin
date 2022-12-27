@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<launch>
+
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find m2wr_description)/urdf/m2wr.urdf.xacro'" />
+
+  <!-- send fake joint values -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="false"/>
+  </node>
+
+  <!-- Combine joint values -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+
+  <!-- Show in Rviz   -->
+  <node name="m2wr_rviz" pkg="rviz" type="rviz" args="-d $(find m2wr_description)/cfg/robot.rviz"/>
+
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="worlds/empty.world"/>
+    <arg name="gui" value="true"/>
+    <arg name="paused" value="false"/>
+  </include> 
+    
+  <node name="m2wr_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -param robot_description -model m2wr" />
+
+  <!-- Run Keybord Control  -->
+  <node name="lab3_node" pkg="lab3" type="lab3_node" output="screen"/>
+
+</launch>
