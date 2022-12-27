@@ -24,6 +24,6 @@
   <node name="m2wr_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -param robot_description -model m2wr" />
 
   <!-- Run Keybord Control  -->
-  <node name="lab3_node" pkg="lab3" type="lab3_node" output="screen"/>
+  <node name="lab3_node" pkg="lab3_klekovkin" type="lab3_node" output="screen"/>
 
 </launch>
